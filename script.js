@@ -1,4 +1,4 @@
-  var trackArray = [];
+var trackArray = [];
 $(function () {
   const audio = $("#audio")[0];
   const playBtn = $("#play-btn");
@@ -23,21 +23,16 @@ $(function () {
   });
 
   getTracklist();
-
-
-
 });
 
 const url = "http://5dd1894f15bbc2001448d28e.mockapi.io/playlist";
 
 function getTracklist() {
   $.get(`${url}`, function (data) {
-   
     if (data && data.length) {
       trackArray = data;
       createList(data);
       plugTrack(data[0]);
-      
     } else {
       console.log("No track Available");
     }
@@ -49,48 +44,34 @@ function getTracklist() {
 function createList(trackList) {
   const container = $(".right");
 
- 
-
   trackList.forEach((item) => {
-    
     const listItem = createListItem(item);
     container.append(listItem);
   });
 }
 
 function createListItem(trackDetails) {
- 
-
   const trackTemplate = createTrackTemplate(trackDetails);
-  console.log(trackTemplate)
+  console.log(trackTemplate);
   const listItem = $(trackTemplate);
   console.log($(trackTemplate));
-  console.log(listItem)
-  
-  $('.right-container').on({
-    click : function () {
-        console.log("click");
+  console.log(listItem);
 
-        const id = $(this).attr("data-id");
-        const track = trackArray.find((i) => i.id === id);
-        plugTrack(track);
+  $(".right-container").on({
+    click: function () {
+      console.log("click");
+
+      const id = $(this).attr("data-id");
+      const track = trackArray.find((i) => i.id === id);
+      plugTrack(track);
     },
   });
-
-
-
-  
-
 
   return `${trackTemplate}`;
 }
 
-function createTrackTemplate(trackDetails,index ) {
-  
-
+function createTrackTemplate(trackDetails, index) {
   const { id, track, artist, albumCover } = trackDetails;
-
-  
 
   return `
   
@@ -109,11 +90,8 @@ function createTrackTemplate(trackDetails,index ) {
   `;
 }
 
-
 function plugTrack(trackDetails) {
   const { file, artist, albumCover, track } = trackDetails;
-
-
 
   const trackImage = $(".left-img-con img");
   const audio = $("#audio");
@@ -130,5 +108,4 @@ function plugTrack(trackDetails) {
   playBtn.show();
 
   console.log(trackDetails);
-  
 }
